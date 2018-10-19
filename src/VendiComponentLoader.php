@@ -62,3 +62,4 @@ final class VendiComponentLoader
         echo "\n";
     }
 }
+
