@@ -11,25 +11,25 @@ final class VendiComponentLoader
     public const SHARED_PARENT_FOLDER = 'page-parts';
     public const SITE_FOLDER = [self::SHARED_PARENT_FOLDER, 'site'];
     public const PAGE_FOLDER = [self::SHARED_PARENT_FOLDER, 'page'];
+    public const LOOP_FOLDER = [self::SHARED_PARENT_FOLDER, 'loop'];
 
     public static function load_site_component(string $name, string $sub_folder = null)
     {
-        //Site components default to the site folder. Go figure.
-        $folders = self::SITE_FOLDER;
-
-        //Support an optional parameter for a single subfolder
-        if ($sub_folder) {
-            $folders[] = $sub_folder;
-        }
-
-        self::load_component_by_folder($name, $folders);
+        self::_do_load_xyz_component(self::SITE_FOLDER, $name, $sub_folder);
     }
 
     public static function load_page_component(string $name, string $sub_folder = null)
     {
-        //Page components default to the page folder. Go figure.
-        $folders = self::PAGE_FOLDER;
+        self::_do_load_xyz_component(self::PAGE_FOLDER, $name, $sub_folder);
+    }
 
+    public static function load_loop_component(string $name, string $sub_folder = null)
+    {
+        self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder);
+    }
+
+    public static function _do_load_xyz_component(array $folders, string $name, string $sub_folder = null)
+    {
         //Support an optional parameter for a single subfolder
         if ($sub_folder) {
             $folders[] = $sub_folder;

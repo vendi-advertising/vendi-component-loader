@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 use Vendi\Shared\WordPress\VendiComponentLoader;
 
-function vendi_load_site_component(string $name)
+function vendi_load_loop_component(string $name, string $sub_folder = null)
 {
-    VendiComponentLoader::load_site_component($name);
+    VendiComponentLoader::load_loop_component($name, $sub_folder);
+}
+
+function vendi_load_site_component(string $name, string $sub_folder = null)
+{
+    VendiComponentLoader::load_site_component($name, $sub_folder);
 }
 
 function vendi_load_page_sub_component(string $name, string $sub_folder)
