@@ -13,17 +13,17 @@ final class VendiComponentLoader
     public const PAGE_FOLDER = [self::SHARED_PARENT_FOLDER, 'page'];
     public const LOOP_FOLDER = [self::SHARED_PARENT_FOLDER, 'loop'];
 
-    public static function load_site_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    public static function load_site_component_with_state(string $name, array $object_state = null, string $sub_folder = null)
     {
         self::_do_load_xyz_component(self::SITE_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_page_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    public static function load_page_component_with_state(string $name, array $object_state = null, string $sub_folder = null)
     {
         self::_do_load_xyz_component(self::PAGE_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_loop_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    public static function load_loop_component_with_state(string $name, array $object_state = null, string $sub_folder = null)
     {
         self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder, $object_state);
     }
