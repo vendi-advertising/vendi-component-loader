@@ -74,9 +74,9 @@ final class VendiComponentLoader
             global $vendi_component_object_state;
             $backup_state = $vendi_component_object_state;
 
-            if($object_state && count($object_state)){
+            if ($object_state && count($object_state)) {
                 $vendi_component_object_state = $object_state;
-            }else{
+            } else {
                 $vendi_component_object_state = null;
             }
 
