@@ -13,32 +13,47 @@ final class VendiComponentLoader
     public const PAGE_FOLDER = [self::SHARED_PARENT_FOLDER, 'page'];
     public const LOOP_FOLDER = [self::SHARED_PARENT_FOLDER, 'loop'];
 
+    public static function load_site_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    {
+        self::_do_load_xyz_component(self::SITE_FOLDER, $name, $sub_folder, $object_state);
+    }
+
+    public static function load_page_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    {
+        self::_do_load_xyz_component(self::PAGE_FOLDER, $name, $sub_folder, $object_state);
+    }
+
+    public static function load_loop_component_with_state(string $name, array $object_state, string $sub_folder = null)
+    {
+        self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder, $object_state);
+    }
+
     public static function load_site_component(string $name, string $sub_folder = null)
     {
-        self::_do_load_xyz_component(self::SITE_FOLDER, $name, $sub_folder);
+        self::load_site_component_with_state($name, null, $sub_folder);
     }
 
     public static function load_page_component(string $name, string $sub_folder = null)
     {
-        self::_do_load_xyz_component(self::PAGE_FOLDER, $name, $sub_folder);
+        self::load_page_component_with_state($name, null, $sub_folder);
     }
 
     public static function load_loop_component(string $name, string $sub_folder = null)
     {
-        self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder);
+        self::load_loop_component_with_state($name, null, $sub_folder);
     }
 
-    public static function _do_load_xyz_component(array $folders, string $name, string $sub_folder = null)
+    public static function _do_load_xyz_component(array $folders, string $name, string $sub_folder = null, array $object_state = null)
     {
         //Support an optional parameter for a single subfolder
         if ($sub_folder) {
             $folders[] = $sub_folder;
         }
 
-        self::load_component_by_folder($name, $folders);
+        self::load_component_by_folder($name, $folders, $object_state);
     }
 
-    public static function load_component_by_folder(string $name, array $folders)
+    public static function load_component_by_folder(string $name, array $folders, array $object_state = null)
     {
 
         //Prepend the template directory on to the start of the array
@@ -50,9 +65,25 @@ final class VendiComponentLoader
         //Merge into a giant path using the wonderful spread operator
         $path = Path::join(...$folders);
 
-
         if (is_readable($path)) {
+
+            //This will hold a backup copy of the object state.
+            //NOTE: If we aren't given an object state, we will intentionally be setting
+            //the global state to null to avoid accidental usage which could lead to bad
+            //programming practice.
+            global $vendi_component_object_state;
+            $backup_state = $vendi_component_object_state;
+
+            if($object_state && count($object_state)){
+                $vendi_component_object_state = $object_state;
+            }else{
+                $vendi_component_object_state = null;
+            }
+
             include $path;
+
+            $vendi_component_object_state = $backup_state;
+
             return;
         }
 
