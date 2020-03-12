@@ -24,7 +24,7 @@ function vendi_load_page_component_with_state(string $name, array $object_state,
     VendiComponentLoader::load_page_component_with_state($name, $object_state, $sub_folder);
 }
 
-function vendi_load_component_component(string $name, array $object_state, string $sub_folder = null)
+function vendi_load_component_component(string $name, string $sub_folder = null)
 {
     VendiComponentLoader::load_component_component($name, $sub_folder);
 }
