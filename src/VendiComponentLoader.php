@@ -33,7 +33,7 @@ final class VendiComponentLoader
     {
         self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder, $object_state);
     }
-    
+
     public static function load_component_component(string $name, string $sub_folder = null)
     {
         self::load_component_component_with_state($name, null, $sub_folder);
@@ -89,6 +89,10 @@ final class VendiComponentLoader
                 $vendi_component_object_state = $object_state;
             } else {
                 $vendi_component_object_state = null;
+            }
+
+            if (function_exists('do_action')) {
+                \do_action('vendi/component-loaded/loading-template', $name, $folders, $path);
             }
 
             include $path;
