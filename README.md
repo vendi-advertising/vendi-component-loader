@@ -22,7 +22,8 @@ The four specially-named folders don't have any explicit uses, and the system wi
 follow the pattern outlined here. There are also times when a theme deviates from this pattern depending on how it was
 built and how it evolved.
 
-Generally speaking, these are the four folder types and their usage:
+Generally speaking, these are the four folder types and their usage. See *Additional folder types* for further
+customization.
 
   * `site`
     * The site folder is intended to hold "shell" content that is found on the bulk of pages such as header, footer,
@@ -127,3 +128,34 @@ An example of using this action is if you want to automatically create the templ
 layouts, and pre-populate them with content making it obvious that further work needs to be done. We especially
 recommend doing this during the early stages of development. Please contact Vendi if you would like a sample of code
 for that.
+
+## Additional folder types
+For simplicity, this library only exposes four primary component types that are used on the majority of websites. If
+you have another specific type that you would like to use, you can easily implement it by creating your own function
+which calls the generic function `Vendi\Shared\WordPress\VendiComponentLoader::load_component_by_folder()`. This
+function takes three arguments, the template name (required), an array of folders relative to the theme's root
+directory (required), and any additional object state (optional).
+
+*NOTE*: The second parameter is an array of sub-folders relative to the theme's root and does not by default include
+the `page-parts` folder. To use that, include the argument `VendiComponentLoader::SHARED_PARENT_FOLDER` as the first
+item in the array. You could also pass path-traversal parameters such as  `..` to break out of the theme's folder, but
+make sure to *filter and sanitize* what you provide so that you don't introduce an exploit or leak private data!
+
+*NOTE*: The component loader is meant as a way to organize code in a simple manner. Although it also allows further
+folder customizations, we encourage developers to not over-think the organization until it actually provides a
+specific benefit. Creating folders for the sake of creating folders might lead to a less-than-optimal developer
+experience, especially when on-boarding new team members.
+
+### Example
+If you wanted to treat "videos" as a first-class type, you could create the following function:
+
+```php
+use Vendi\Shared\WordPress\VendiComponentLoader;
+
+function YOUR_PREFIX_load_video_component(string $name)
+{
+    VendiComponentLoader::load_component_by_folder($name, [VendiComponentLoader::SHARED_PARENT_FOLDER, 'video']);
+}
+```
+
+Which would load templates from `/page-parts/video/`.
