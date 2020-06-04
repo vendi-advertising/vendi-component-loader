@@ -58,7 +58,8 @@ final class VendiComponentLoader
     {
         //Support an optional parameter for a single subfolder
         if ($sub_folder) {
-            $folders[] = $sub_folder;
+            // Allow a path-separated list of even more subfolders
+            $folders = array_merge($folders, explode(DIRECTORY_SEPARATOR, $sub_folder));
         }
 
         self::load_component_by_folder($name, $folders, $object_state);
