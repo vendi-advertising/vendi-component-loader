@@ -108,7 +108,7 @@ final class VendiComponentLoader
         if (function_exists('do_action')) {
             \do_action('vendi/component-loaded/missing-template', $name, $folders, $path);
         }
-        echo sprintf('<!-- Count not file template %1$s in folder(s) %2$s -->', esc_html($name), esc_html(implode('/', $folders)));
+        echo sprintf('<!-- Could not find template %1$s in folder(s) %2$s -->', esc_html($name), esc_html(implode('/', $folders)));
         echo "\n";
     }
 }
