@@ -1,5 +1,6 @@
 {
     "name": "vendi-advertising/vendi-component-loader",
+    "description": "Folder-based template loader for WordPress",
     "type": "library",
     "license": "MIT",
     "authors": [
