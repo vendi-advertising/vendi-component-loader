@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Vendi\Shared\WordPress\VendiComponentLoader;
 
-function load_sub_component_with_state(string $name, array $object_state, string $sub_folder = null): void
+function vendi_load_sub_component_with_state(string $name, array $object_state, string $sub_folder = null): void
 {
     VendiComponentLoader::load_sub_component_with_state($name, $object_state, $sub_folder);
 }

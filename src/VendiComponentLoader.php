@@ -12,12 +12,12 @@ final class VendiComponentLoader
     public const SITE_FOLDER = [self::SHARED_PARENT_FOLDER, 'site'];
     public const PAGE_FOLDER = [self::SHARED_PARENT_FOLDER, 'page'];
     public const LOOP_FOLDER = [self::SHARED_PARENT_FOLDER, 'loop'];
-    public const SUB_COMPONENT_LOOP_FOLDER = [self::SHARED_PARENT_FOLDER, 'sub-component'];
+    public const SUB_COMPONENT_FOLDER = [self::SHARED_PARENT_FOLDER, 'sub-component'];
     public const COMPONENT_FOLDER = [self::SHARED_PARENT_FOLDER, 'component'];
 
     public static function load_sub_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
     {
-        self::_do_load_xyz_component(self::SUB_COMPONENT_LOOP_FOLDER, $name, $sub_folder, $object_state);
+        self::_do_load_xyz_component(self::SUB_COMPONENT_FOLDER, $name, $sub_folder, $object_state);
     }
 
     public static function load_component_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
