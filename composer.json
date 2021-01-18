@@ -13,17 +13,18 @@
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.14",
         "sensiolabs/security-checker": "^5",
-        "symfony/var-dumper": "^4|^5",
-        "symfony/debug": "^4.1|^5",
-        "jakub-onderka/php-parallel-lint": "^1.0"
+        "symfony/var-dumper": "^4|^5"
     },
     "config": {
         "optimize-autoloader": true
     },
     "autoload": {
-        "psr-4": {"Vendi\\Shared\\WordPress\\": "src/"},
-        "files": ["includes/Functions.php"]
+        "psr-4": {
+            "Vendi\\Shared\\WordPress\\": "src/"
+        },
+        "files": [
+            "includes/Functions.php"
+        ]
     }
 }
