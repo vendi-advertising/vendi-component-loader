@@ -54,6 +54,11 @@ function vendi_load_page_component(string $name, string $sub_folder = null): voi
     VendiComponentLoader::load_page_component($name, $sub_folder);
 }
 
+/**
+ * @param string $name
+ * @return void
+ * @deprecated Please move this function into your theme because it will be removed in a future version.
+ */
 function vendi_load_resource_component(string $name): void
 {
     VendiComponentLoader::load_component_by_folder($name, [VendiComponentLoader::SHARED_PARENT_FOLDER, 'resources']);
