@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vendi\Shared\WordPress;
+namespace Vendi\Shared\WordPress\ComponentLoader;
 
 use Symfony\Component\Filesystem\Path;
+use function apply_filters;
+use function do_action;
+use function do_action_deprecated;
+use function esc_html;
+use function get_template_directory;
 
 final class VendiComponentLoader
 {
@@ -74,7 +79,7 @@ final class VendiComponentLoader
     public static function load_component_by_folder(string $name, array $folders, array $object_state = null): void
     {
         //Prepend the template directory on to the start of the array
-        array_unshift($folders, \get_template_directory());
+        array_unshift($folders, get_template_directory());
 
         // Allow callers to specify custom file extensions, such as .twig
         $file_extensions = ['.php'];
@@ -117,9 +122,9 @@ final class VendiComponentLoader
 
             if (function_exists('do_action')) {
                 if (function_exists('do_action_deprecated')) {
-                    \do_action_deprecated('vendi/component-loaded/loading-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader"');
+                    do_action_deprecated('vendi/component-loaded/loading-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader"');
                 }
-                \do_action('vendi/component-loader/loading-template', $name, $folders, $path);
+                do_action('vendi/component-loader/loading-template', $name, $folders, $path);
             }
 
             include $path;
@@ -134,11 +139,11 @@ final class VendiComponentLoader
         $path = reset($paths);
         if (function_exists('do_action')) {
             if (function_exists('do_action_deprecated')) {
-                \do_action_deprecated('vendi/component-loaded/missing-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader".');
+                do_action_deprecated('vendi/component-loaded/missing-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader".');
             }
-            \do_action('vendi/component-loaded/missing-template', $name, $folders, $path, $paths);
+            do_action('vendi/component-loaded/missing-template', $name, $folders, $path, $paths);
         }
-        echo sprintf('<!-- Could not find template %1$s in folder(s) %2$s -->', \esc_html($name), \esc_html(implode('/', $folders)));
+        echo sprintf('<!-- Could not find template %1$s in folder(s) %2$s -->', esc_html($name), esc_html(implode('/', $folders)));
         echo "\n";
     }
 }

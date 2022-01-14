@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Vendi\Shared\WordPress\VendiComponentLoader;
+use Vendi\Shared\WordPress\ComponentLoader\VendiComponentLoader;
 
 function vendi_load_sub_component_with_state(string $name, array $object_state, string $sub_folder = null): void
 {
