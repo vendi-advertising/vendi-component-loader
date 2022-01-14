@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vendi\Shared\WordPress;
 
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 final class VendiComponentLoader
 {
