@@ -14,8 +14,7 @@
         "symfony/filesystem": "^6.0"
     },
     "require-dev": {
-        "sensiolabs/security-checker": "^5",
-        "symfony/var-dumper": "^4|^5"
+        "symfony/var-dumper": "^4|^5|^6"
     },
     "config": {
         "optimize-autoloader": true
