@@ -141,7 +141,7 @@ final class VendiComponentLoader
             if (function_exists('do_action_deprecated')) {
                 do_action_deprecated('vendi/component-loaded/missing-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader".');
             }
-            do_action('vendi/component-loaded/missing-template', $name, $folders, $path, $paths);
+            do_action('vendi/component-loader/missing-template', $name, $folders, $path, $paths);
         }
         echo sprintf('<!-- Could not find template %1$s in folder(s) %2$s -->', esc_html($name), esc_html(implode('/', $folders)));
         echo "\n";
