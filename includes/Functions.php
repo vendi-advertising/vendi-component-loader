@@ -5,6 +5,11 @@ declare(strict_types=1);
 use Vendi\Shared\WordPress\ComponentLoader\VendiComponentLoader;
 use Vendi\Shared\WordPress\ComponentLoader\VendiLayoutComponentLoader;
 
+function vendi_load_layout_based_sub_component_with_state(string $layout, string $subComponentName, array $object_state): void
+{
+    VendiLayoutComponentLoader::load_layout_based_sub_component_with_state($layout, $subComponentName, $object_state);
+}
+
 function vendi_load_layout_based_sub_component(string $layout, string $subComponentName): void
 {
     VendiLayoutComponentLoader::load_layout_based_sub_component($layout, $subComponentName);
