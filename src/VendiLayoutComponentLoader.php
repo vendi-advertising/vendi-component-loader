@@ -24,7 +24,7 @@ final class VendiLayoutComponentLoader
     {
         $localName = is_string($layout) ? [$layout] : $layout;
 
-        $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, ...$layout);
+        $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, ...$localName);
         $componentFile = Path::join($componentDirectory, 'component.php');
         if (is_readable($componentFile)) {
             global $vendi_layout_component_object_state;
@@ -37,7 +37,7 @@ final class VendiLayoutComponentLoader
             }
 
             if (function_exists('do_action')) {
-                do_action('vendi/component-loader/loading-layout', $layout);
+                do_action('vendi/component-loader/loading-layout', $localName);
             }
 
             include $componentFile;
@@ -50,9 +50,9 @@ final class VendiLayoutComponentLoader
         //Output debug code to help template people know what file to create
         echo "\n";
         if (function_exists('do_action')) {
-            do_action('vendi/component-loader/missing-layout', $layout);
+            do_action('vendi/component-loader/missing-layout', $localName);
         }
-        echo sprintf('<!-- Could not find layout %1$s -->', esc_html($layout));
+        echo sprintf('<!-- Could not find layout %1$s -->', esc_html($localName));
         echo "\n";
     }
 }
