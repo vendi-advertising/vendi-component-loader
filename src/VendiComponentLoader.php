@@ -82,27 +82,19 @@ final class VendiComponentLoader
         array_unshift($folders, get_template_directory());
 
         // Allow callers to specify custom file extensions, such as .twig
-        $file_extensions = ['.php'];
-        if (function_exists('apply_filters')) {
-            $file_extensions = apply_filters('vendi/component-loader/file-extensions', $file_extensions);
-        }
+        $file_extension = '.php';
 
-        $paths = [];
+        //Append the file name to the end of the array
+        $folders[] = $name.$file_extension;
 
-        foreach ($file_extensions as $file_extension) {
-            //Append the file name to the end of the array
-            $folders[] = $name.$file_extension;
+        //Merge into a giant path using the wonderful spread operator
+        $path = Path::join(...$folders);
+        
+        $path = apply_filters('vendi/component-loader/loading-template/path', $path, $name, $folders);
 
-            //Merge into a giant path using the wonderful spread operator
-            $path = Path::join(...$folders);
-
-            $paths[] = $path;
-
-            // If the file doesn't exist, move on to the next extension
-            if (!is_readable($path)) {
-                continue;
-            }
-
+        // Make sure that the file exists
+        if (is_readable($path)) {
+                
             //This will hold a backup copy of the object state.
             //NOTE: If we aren't given an object state, we will intentionally be setting
             //the global state to null to avoid accidental usage which could lead to bad
@@ -136,12 +128,11 @@ final class VendiComponentLoader
 
         //Output debug code to help template people know what file to create
         echo "\n";
-        $path = reset($paths);
         if (function_exists('do_action')) {
             if (function_exists('do_action_deprecated')) {
                 do_action_deprecated('vendi/component-loaded/missing-template', [$name, $folders, $path], '2.0', 'The hook\'s namespace typo has been corrected to "component-loader".');
             }
-            do_action('vendi/component-loader/missing-template', $name, $folders, $path, $paths);
+            do_action('vendi/component-loader/missing-template', $name, $folders, $path, []);
         }
         echo sprintf('<!-- Could not find template %1$s in folder(s) %2$s -->', esc_html($name), esc_html(implode('/', $folders)));
         echo "\n";
