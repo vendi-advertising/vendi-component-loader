@@ -34,7 +34,7 @@ final class VendiLayoutComponentLoader
     {
 
         $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, $layout, 'layouts');
-        $componentFile = Path::join($componentDirectory, $subComponentName);
+        $componentFile = Path::join($componentDirectory, $subComponentName . '.php');
 
         if (is_readable($componentFile)) {
             global $vendi_layout_component_object_state;
