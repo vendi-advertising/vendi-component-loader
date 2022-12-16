@@ -34,7 +34,7 @@ final class VendiLayoutComponentLoader
     {
 
         $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, $layout, 'layouts');
-        $componentFile = Path::join($componentDirectory, $subComponentName . '.php');
+        $componentFile = Path::join($componentDirectory, $subComponentName.'.php');
 
         if (is_readable($componentFile)) {
             global $vendi_layout_component_object_state;
@@ -71,26 +71,33 @@ final class VendiLayoutComponentLoader
         $localName = is_string($layout) ? [$layout] : $layout;
 
         $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, ...$localName);
-        $componentFile = Path::join($componentDirectory, 'component.php');
-        if (is_readable($componentFile)) {
-            global $vendi_layout_component_object_state;
-            $backup_state = $vendi_layout_component_object_state;
 
-            if ($object_state && count($object_state)) {
-                $vendi_layout_component_object_state = $object_state;
-            } else {
-                $vendi_layout_component_object_state = null;
+        $lastFolder = basename($componentDirectory);
+
+        $filesToTest = [$lastFolder.'.php', 'component.php'];
+
+        foreach ($filesToTest as $fileToTest) {
+            $componentFile = Path::join($componentDirectory, $fileToTest);
+            if (is_readable($componentFile)) {
+                global $vendi_layout_component_object_state;
+                $backup_state = $vendi_layout_component_object_state;
+
+                if ($object_state && count($object_state)) {
+                    $vendi_layout_component_object_state = $object_state;
+                } else {
+                    $vendi_layout_component_object_state = null;
+                }
+
+                if (function_exists('do_action')) {
+                    do_action('vendi/component-loader/loading-layout', $localName);
+                }
+
+                include $componentFile;
+
+                $vendi_layout_component_object_state = $backup_state;
+
+                return;
             }
-
-            if (function_exists('do_action')) {
-                do_action('vendi/component-loader/loading-layout', $localName);
-            }
-
-            include $componentFile;
-
-            $vendi_layout_component_object_state = $backup_state;
-
-            return;
         }
 
         //Output debug code to help template people know what file to create
