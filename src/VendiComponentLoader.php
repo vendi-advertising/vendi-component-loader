@@ -20,52 +20,52 @@ final class VendiComponentLoader
     public const SUB_COMPONENT_FOLDER = [self::SHARED_PARENT_FOLDER, 'sub-component'];
     public const COMPONENT_FOLDER = [self::SHARED_PARENT_FOLDER, 'component'];
 
-    public static function load_sub_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
+    public static function load_sub_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
     {
         self::_do_load_xyz_component(self::SUB_COMPONENT_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_component_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
+    public static function load_component_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
     {
         self::_do_load_xyz_component(self::COMPONENT_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_site_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
+    public static function load_site_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
     {
         self::_do_load_xyz_component(self::SITE_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_page_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
+    public static function load_page_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
     {
         self::_do_load_xyz_component(self::PAGE_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_loop_component_with_state(string $name, array $object_state = null, string $sub_folder = null): void
+    public static function load_loop_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
     {
         self::_do_load_xyz_component(self::LOOP_FOLDER, $name, $sub_folder, $object_state);
     }
 
-    public static function load_component_component(string $name, string $sub_folder = null): void
+    public static function load_component_component(string $name, ?string $sub_folder = null): void
     {
         self::load_component_component_with_state($name, null, $sub_folder);
     }
 
-    public static function load_site_component(string $name, string $sub_folder = null): void
+    public static function load_site_component(string $name, ?string $sub_folder = null): void
     {
         self::load_site_component_with_state($name, null, $sub_folder);
     }
 
-    public static function load_page_component(string $name, string $sub_folder = null): void
+    public static function load_page_component(string $name, ?string $sub_folder = null): void
     {
         self::load_page_component_with_state($name, null, $sub_folder);
     }
 
-    public static function load_loop_component(string $name, string $sub_folder = null): void
+    public static function load_loop_component(string $name, ?string $sub_folder = null): void
     {
         self::load_loop_component_with_state($name, null, $sub_folder);
     }
 
-    public static function _do_load_xyz_component(array $folders, string $name, string $sub_folder = null, array $object_state = null): void
+    public static function _do_load_xyz_component(array $folders, string $name, ?string $sub_folder = null, ?array $object_state = null): void
     {
         //Support an optional parameter for a single sub folder
         if ($sub_folder) {
@@ -76,7 +76,7 @@ final class VendiComponentLoader
         self::load_component_by_folder($name, $folders, $object_state);
     }
 
-    public static function load_component_by_folder(string $name, array $folders, array $object_state = null): void
+    public static function load_component_by_folder(string $name, array $folders, ?array $object_state = null): void
     {
         //Prepend the template directory on to the start of the array
         array_unshift($folders, get_template_directory());

@@ -25,11 +25,6 @@ final class VendiLayoutComponentLoader
 
     public static function load_layout_based_component_with_state(string|array $layout, ?array $object_state = null): void
     {
-        self::_load_layout_based_component_with_state($layout, $object_state);
-    }
-
-    protected static function _load_layout_based_component_with_state(string|array $layout, ?array $object_state = null): void
-    {
         $localName = is_string($layout) ? explode('/', $layout) : $layout;
 
         // Remove blanks, just in case
