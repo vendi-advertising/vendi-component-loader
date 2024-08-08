@@ -8,7 +8,20 @@ use Symfony\Component\Filesystem\Path;
 
 final class VendiLayoutComponentLoader
 {
-    public const SHARED_LAYOUT_FOLDER = 'layouts';
+    private const SHARED_LAYOUT_FOLDER_DEFAULT = 'layouts';
+
+    private static function get_layout_folder(): string
+    {
+        static $folder = null;
+        if (!$folder) {
+            $folder = self::SHARED_LAYOUT_FOLDER_DEFAULT;
+            if (function_exists('apply_filters')) {
+                $folder = apply_filters('vendi/component-loader/get-layout-folder', $folder);
+            }
+        }
+
+        return $folder;
+    }
 
     public static function load_layout_based_sub_component_with_state(string $layout, string $subComponentName, array $object_state = null): void
     {
@@ -33,7 +46,7 @@ final class VendiLayoutComponentLoader
     protected static function _do_load_layout_based_sub_component_with_state(string $layout, string $subComponentName, array $object_state = null): void
     {
 
-        $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, $layout, 'layouts');
+        $componentDirectory = Path::join(get_template_directory(), self::get_layout_folder(), $layout, 'layouts');
         $componentFile = Path::join($componentDirectory, $subComponentName.'.php');
 
         if (is_readable($componentFile)) {
@@ -70,7 +83,7 @@ final class VendiLayoutComponentLoader
     {
         $localName = is_string($layout) ? [$layout] : $layout;
 
-        $componentDirectory = Path::join(get_template_directory(), self::SHARED_LAYOUT_FOLDER, ...$localName);
+        $componentDirectory = Path::join(get_template_directory(), self::get_layout_folder(), ...$localName);
 
         $lastFolder = basename($componentDirectory);
 
