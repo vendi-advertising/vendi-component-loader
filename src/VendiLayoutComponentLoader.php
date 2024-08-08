@@ -30,11 +30,15 @@ final class VendiLayoutComponentLoader
         // Remove blanks, just in case
         $localName = array_filter($localName);
 
+        if (count($localName) > 1) {
+            $filename = array_pop($localName);
+        } else {
+            $filename = $localName[0];
+        }
+
         $componentDirectory = Path::join(get_template_directory(), self::get_layout_folder(), ...$localName);
 
-        $lastFolder = basename($componentDirectory);
-
-        $filesToTest = [$lastFolder.'.php'];
+        $filesToTest = [$filename.'.php'];
 
         foreach ($filesToTest as $fileToTest) {
             $componentFile = Path::join($componentDirectory, $fileToTest);
