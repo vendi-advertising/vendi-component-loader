@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vendi\Shared\WordPress\ComponentLoader;
 
+use JetBrains\PhpStorm\Deprecated;
 use Symfony\Component\Filesystem\Path;
 
 final class VendiLayoutComponentLoader
@@ -23,26 +24,32 @@ final class VendiLayoutComponentLoader
         return $folder;
     }
 
+    #[Deprecated('Use load_layout_based_component_with_state with an array')]
     public static function load_layout_based_sub_component_with_state(string $layout, string $subComponentName, array $object_state = null): void
     {
-        self::_do_load_layout_based_sub_component_with_state($layout, $subComponentName, $object_state);
+//        self::_do_load_layout_based_sub_component_with_state($layout, $subComponentName, $object_state);
+        self::_load_layout_based_component_with_state([$subComponentName, $layout], $object_state);
     }
 
+    #[Deprecated('Use load_layout_based_component with an array')]
     public static function load_layout_based_sub_component(string $layout, string $subComponentName): void
     {
-        self::_do_load_layout_based_sub_component_with_state($layout, $subComponentName, null);
+//        self::_do_load_layout_based_sub_component_with_state($layout, $subComponentName, null);
+        self::_load_layout_based_component_with_state([$subComponentName, $layout], null);
     }
 
-    public static function load_layout_based_component(string $layout): void
+    #[Deprecated('Use load_layout_based_component_with_state with an array')]
+    public static function load_layout_based_component(string|array $layout): void
     {
         self::_load_layout_based_component_with_state($layout, null);
     }
 
-    public static function load_layout_based_component_with_state(string $layout): void
+    public static function load_layout_based_component_with_state(string|array $layout, ?array $object_state = null): void
     {
-        self::_load_layout_based_component_with_state($layout, null);
+        self::_load_layout_based_component_with_state($layout, $object_state);
     }
 
+    #[Deprecated('Use _load_layout_based_component_with_state with an array')]
     protected static function _do_load_layout_based_sub_component_with_state(string $layout, string $subComponentName, array $object_state = null): void
     {
 
