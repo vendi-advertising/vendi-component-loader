@@ -7,7 +7,7 @@ use Vendi\Shared\WordPress\ComponentLoader\VendiLayoutComponentLoader;
 
 function vendi_load_layout_based_component(string|array $layout, ?array $object_state = null): void
 {
-    VendiLayoutComponentLoader::load_layout_based_component_with_state($layout, null);
+    VendiLayoutComponentLoader::load_layout_based_component_with_state($layout, $object_state);
 }
 
 function vendi_load_sub_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
