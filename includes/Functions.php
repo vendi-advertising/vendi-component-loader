@@ -49,9 +49,18 @@ function vendi_load_page_component_with_state(string $name, ?array $object_state
 
 function vendi_load_component_component(string $name, ?string $sub_folder = null): void
 {
-       if ( ! function_exists('vendi_load_component_v3') || !vendi_load_component_v3($name)) {
-        VendiComponentLoader::load_component_component($name, $sub_folder);
+    // 2025
+    if (function_exists('vendi_load_component_v3') && vendi_load_component_v3($name)) {
+        return;
     }
+
+    // 2023
+    if (function_exists('vendi_maybe_load_component_component_v2') && vendi_maybe_load_component_component_v2($name)) {
+        return;
+    }
+
+    // Legacy
+    VendiComponentLoader::load_component_component($name, $sub_folder);
 }
 
 function vendi_load_loop_component(string $name, ?string $sub_folder = null): void
