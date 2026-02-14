@@ -29,6 +29,10 @@ function vendi_load_sub_component_with_state(string $name, ?array $object_state 
 
 function vendi_load_component_component_with_state(string $name, ?array $object_state = null, ?string $sub_folder = null): void
 {
+    if ( ! function_exists('vendi_load_component_v3') || !vendi_load_component_v3($name)) {
+        VendiComponentLoader::load_component_component($name, $sub_folder);
+    }
+
     VendiComponentLoader::load_component_component_with_state($name, $object_state, $sub_folder);
 }
 
